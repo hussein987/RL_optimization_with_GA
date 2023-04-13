@@ -1,2 +1,5 @@
 Miniconda3-latest-MacOSX-x86_64.sh
 venv/
+dqn_cartpole_eval/
+dqn_cartpole_tensorboard/
+__pycache__/
