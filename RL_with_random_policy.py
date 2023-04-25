@@ -1,19 +1,13 @@
 import gym
 import random
-import warnings
-warnings.filterwarnings("ignore", category=DeprecationWarning)
-import matplotlib.pyplot as plt
-
-
 
 # Create the CartPole environment
-env = gym.make('CartPole-v1')
+env = gym.make('CartPole-v1', render_mode="rgb_array")
 
 # Number of episodes to run
 num_episodes = 10
 
 for episode in range(num_episodes):
-    print("Runnning")
     # Reset the environment
     observation = env.reset()
     done = False
@@ -22,13 +16,14 @@ for episode in range(num_episodes):
     while not done:
         # Render the environment
         env.render()
+        import time 
+        time.sleep(1)
 
         # Choose a random action
         action = random.choice([0, 1])
 
         # Take the action
         observation, reward, done, info = env.step(action)[:4]
-        print(observation)
 
         # Increment the step counter
         step += 1
