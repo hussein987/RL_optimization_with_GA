@@ -8,8 +8,11 @@ from stable_baselines3.common.monitor import Monitor
 
 eval_env = gym.make("CartPole-v1")
 
+print("Loading model...")
 # load /Users/husseinyounes/University/Advanced_ML/RL_optimization_with_GA/dqn_cartpole_eval/best_model.zip
 model = DQN.load("/Users/husseinyounes/University/Advanced_ML/RL_optimization_with_GA/dqn_cartpole_eval/best_model.zip")
+print("Model loaded")
+print(model)
 
 obs = eval_env.reset()
 while True:

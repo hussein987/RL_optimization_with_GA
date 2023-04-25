@@ -4,6 +4,7 @@ from stable_baselines3 import DQN
 from stable_baselines3.common.callbacks import EvalCallback, BaseCallback
 from stable_baselines3.common.monitor import Monitor
 
+env_name = "CartPole-v1"
 
 env = gym.make("CartPole-v1")
 eval_env = gym.make("CartPole-v1")
@@ -20,7 +21,7 @@ eval_callback = EvalCallback(eval_env, best_model_save_path='./dqn_cartpole_eval
 
 
 # Pass the TensorBoard callback to the learn method
-model.learn(total_timesteps=1000000, log_interval=4, callback=eval_callback)
+model.learn(total_timesteps=1000000, log_interval=4, callback=eval_callback, tb_log_name=f"DQN_{env_name}")
 model.save("dqn_cartpole")
 
 del model  # remove to demonstrate saving and loading
