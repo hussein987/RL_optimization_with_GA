@@ -1,9 +1,8 @@
 import gym
 import random
-import matplotlib.pyplot as plt
 
 # Create the CartPole environment
-env = gym.make("CartPole-v1", render_mode="human")  # rgb_array")
+env = gym.make('CartPole-v1', render_mode="rgb_array")
 
 # Number of episodes to run
 num_episodes = 10
@@ -17,9 +16,8 @@ for episode in range(num_episodes):
     while not done:
         # Render the environment
         env.render()
-        import time
-
-        time.sleep(0.02)
+        import time 
+        time.sleep(1)
 
         # Choose a random action
         action = random.choice([0, 1])
