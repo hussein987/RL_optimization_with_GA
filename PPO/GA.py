@@ -3,7 +3,7 @@ from typing import Dict, List, Tuple, Callable
 
 
 class GA:
-    def __init__(self, params: Dict[str, List], fitness_fn: Callable[[Dict[str, any]], float], tournament_size: int = 2,
+    def __init__(self, params: Dict[str, List], fitness_fn: Callable[[Dict[str, any]], float] = None, tournament_size: int = 2,
                  mutation_prob: float = 0.1, pop_size: int = 10):
         """
         :param params: a dict with the name of the parameter as the key
@@ -35,7 +35,7 @@ class GA:
             population.append(s)
         return population
 
-    def do_crossover(self, s1: Dict[str, any], s2: Dict[str, any], m: int) -> Tuple[Dict[str, any], Dict[str, any]]:
+    def do_crossover(self, s1: Dict[str, any], s2: Dict[str, any], m: int = None) -> Tuple[Dict[str, any], Dict[str, any]]:
         """
         Performs crossover between two individuals at a given crossover point.
 
@@ -48,6 +48,9 @@ class GA:
         A tuple containing two dictionaries, each representing an offspring
         resulting from the crossover operation.
         """
+        if m is None:
+            m = np.random.choice(range(len(self.params)))
+
         if m >= len(self.params):
             raise ValueError("Crossover point exceeds the number of parameters.")
 
@@ -77,25 +80,34 @@ class GA:
             raise ValueError("Invalid parameter name for mutation.")
 
         s1 = s.copy()
-        s1[m] = np.random.choice(self.params[m])
+        if np.random.rand() < self.mutation_prob:
+            if type(s1[m]) == float:
+                s1[m] += np.random.normal(loc=0.0, scale=s1[m] / 10)  # +- 10%
+            else:
+                s1[m] = np.random.choice(self.params[m])
         return s1
 
-    def get_elite(self, gen: List[Dict[str, any]], fitness: List[float], k: int) -> List[Dict[str, any]]:
+    def get_elite(self, pop: List[Dict[str, any]], fitness: List[float], k: int = None):
         """
         Returns the top k individuals in the population based on their fitness scores.
         The population and corresponding fitness scores are sorted in descending order of fitness.
 
-        :param gen: a list of dictionaries representing individuals in the population
+        :param pop: a list of dictionaries representing individuals in the population
         :param fitness: a list of fitness scores corresponding to the individuals in the population
         :param k: the number of elite individuals to select
         :return: a list of the top k individuals in the population based on fitness score
         """
-        if len(gen) != len(fitness):
-            raise ValueError("Population size and fitness values do not match.")
+        if k is None:
+            k = self.pop_size
 
-        if k > len(gen):
+        if k > len(pop):
             raise ValueError("Number of elites requested exceeds the population size.")
 
-        temp_list = [(gen[i], fitness[i]) for i in range(len(gen))]
+        if len(pop) != len(fitness):
+            raise ValueError("Population size and fitness values do not match.")
+
+        temp_list = [(pop[i], fitness[i]) for i in range(len(pop))]
         temp_list = sorted(temp_list, key=lambda x: x[1], reverse=True)
-        return [temp[0] for temp in temp_list][:k]
+        pop = [temp[0] for temp in temp_list][:k]
+        fitness = [temp[1] for temp in temp_list][:k]
+        return pop, fitness
