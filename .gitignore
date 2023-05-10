@@ -3,3 +3,10 @@ venv/
 dqn_cartpole_eval/
 dqn_cartpole_tensorboard/
 __pycache__/
+DQN_best_CartPole-v1_GA_False
+DQN_CartPole-v1_eval
+dqn_tensorboard
+LunarLander-v2_eval
+LunarLander-v2_eval_1
+LunarLander-v2_tensorboard
+tensorboard_logs
