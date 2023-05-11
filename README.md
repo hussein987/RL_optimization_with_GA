@@ -21,9 +21,15 @@ pip install gym torch numpy stable_baselines3
 ```
 
 Usage
-To run the code, simply execute the Train.py script:
+To run the code, go to the directory of the model that you want to train (PPO or DQN),
+and execute the Train.py script:
 
 ```
 python train.py
 ```
-The script will train a PPO agent for 1000 episodes of the environment and print the total score obtained in every generation. The trained network will be saved in a file next to the code.
+You can edit the parameters given to the GA class to edit the hyperparameters to be optimized.
+
+The script will train a PPO/DQN agent for 10000 episodes of the environment
+and  print the total score obtained in every generation. The trained network
+will be saved in a file next to the code.
+
