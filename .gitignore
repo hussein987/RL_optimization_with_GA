@@ -10,3 +10,5 @@ LunarLander-v2_eval
 LunarLander-v2_eval_1
 LunarLander-v2_tensorboard
 tensorboard_logs
+
+*.zip
