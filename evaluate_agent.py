@@ -2,15 +2,15 @@
 
 import gym
 import time
-from stable_baselines3 import DQN
+from stable_baselines3 import DQN, PPO
 from stable_baselines3.common.callbacks import EvalCallback, BaseCallback
 from stable_baselines3.common.monitor import Monitor
 
-eval_env = gym.make("CartPole-v1")
+eval_env = gym.make("BipedalWalker-v3")
 
 print("Loading model...")
 # load /Users/husseinyounes/University/Advanced_ML/RL_optimization_with_GA/dqn_cartpole_eval/best_model.zip
-model = DQN.load("/Users/husseinyounes/University/Advanced_ML/RL_optimization_with_GA/dqn_cartpole_eval/best_model.zip")
+model = PPO.load("/Users/husseinyounes/University/Advanced_ML/RL_optimization_with_GA/PPO_best_BipedalWalker-v3_GA_True/best_model.zip")
 print("Model loaded")
 print(model)
 
